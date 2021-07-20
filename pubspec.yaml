@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
+  image: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -21,6 +21,18 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.citeable.imgtozpl
+        pluginClass: ImageToZpl
+      ios:
+        pluginClass: ImageToZpl
+      macos:
+        pluginClass: ImageToZpl
+      web:
+        pluginClass: ImageToZpl
+        fileName: img_to_zpl.dart
 
   # To add assets to your package, add an assets section, like this:
   # assets:
