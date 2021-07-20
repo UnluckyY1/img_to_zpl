@@ -56,12 +56,12 @@ class ImageToZpl {
         var red = (rgb! >> 16) & 0x000000FF;
         var green = (rgb >> 8) & 0x000000FF;
         var blue = (rgb) & 0x000000FF;
-        var auxChar = '1';
+        var currentChar = '1';
         int totalColor = red + green + blue;
         if (totalColor > 384) {
-          auxChar = '0';
+          currentChar = '0';
         }
-        colorByte[index] = auxChar;
+        colorByte[index] = currentChar;
         index++;
         if (index == 8 || w == (width - 1)) {
           hexString += _fourByteBinary(colorByte.join());
