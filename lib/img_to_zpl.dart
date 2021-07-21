@@ -20,7 +20,8 @@ class ImgToZpl {
   /// '~DF[name], [totalImageBytes], [bytesperRow], [data in hex format]\n'
   /// you can use this image in zpl using the following command
   /// '^FO25,0^XGR:[name],1,1^FS'
-  Future<String> convertImgtoZpl(String name, Uint8List imageAsU8) async {
+  static Future<String> convertImgtoZpl(
+      String name, Uint8List imageAsU8) async {
     HexImageString tuple = await _getHexBody(imageAsU8);
     var body = tuple.hexImage;
     //if (compressHex) cuerpo = encodeHexAscii(cuerpo);
@@ -33,7 +34,7 @@ class ImgToZpl {
         "\n";
   }
 
-  Future<HexImageString> _getHexBody(Uint8List imageAsU8) async {
+  static Future<HexImageString> _getHexBody(Uint8List imageAsU8) async {
     var image = Image.memory(imageAsU8);
     Completer<ui.Image> completer = new Completer<ui.Image>();
     image.image
@@ -80,7 +81,7 @@ class ImgToZpl {
         hexImage: hexString, totalBytes: total, widthBytes: widthBytes);
   }
 
-  String _fourByteBinary(String binaryStr) {
+  static String _fourByteBinary(String binaryStr) {
     int decimal = int.parse(binaryStr, radix: 2);
     if (decimal > 15) {
       return decimal.toRadixString(16).toUpperCase();

@@ -1,6 +1,7 @@
 name: img_to_zpl
-description: A new Flutter Plugin project.
-version: 0.0.1+3
+description: This is the plugin to convert images into black white printable images in zpl format
+  to print using zebra printers.
+version: 0.0.1+4
 repository: 'https://github.com/teisdbr/img_to_zpl'
 
 environment:
