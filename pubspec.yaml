@@ -1,6 +1,6 @@
 name: img_to_zpl
 description: A new Flutter Plugin project.
-version: 0.0.1+2
+version: 0.0.1+3
 repository: 'https://github.com/teisdbr/img_to_zpl'
 
 environment:
