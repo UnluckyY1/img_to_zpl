@@ -1,19 +1,54 @@
-import 'dart:async' show Completer, Future;
+import 'dart:async';
+// In order to *not* need this ignore, consider extracting the "web" version
+// of your plugin as a separate package, instead of inlining it in the same
+// package as the core of your plugin.
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html show window;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:image/image.dart' as img;
+import 'package:flutter/widgets.dart'
+    show Image, ImageConfiguration, ImageInfo, ImageStreamListener;
 
 import 'src/hex_img_string.dart';
 
-class ImgToZpl {
-  static const MethodChannel _channel = const MethodChannel('img_to_zpl');
+/// A web implementation of the ImgToZpl plugin.
+class ImgToZplWeb {
+  static void registerWith(Registrar registrar) {
+    final MethodChannel channel = MethodChannel(
+      'img_to_zpl',
+      const StandardMethodCodec(),
+      registrar,
+    );
 
-  static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+    final pluginInstance = ImgToZplWeb();
+    channel.setMethodCallHandler(pluginInstance.handleMethodCall);
+  }
+
+  /// Handles method calls over the MethodChannel of this plugin.
+  /// Note: Check the "federated" architecture for a new way of doing this:
+  /// https://flutter.dev/go/federated-plugins
+  Future<dynamic> handleMethodCall(MethodCall call) async {
+    switch (call.method) {
+      case 'getPlatformVersion':
+        return getPlatformVersion();
+      case 'convertImgtoZpl':
+        return convertImgtoZpl(call.arguments[0], call.arguments[1]);
+      default:
+        throw PlatformException(
+          code: 'Unimplemented',
+          details: 'img_to_zpl for web doesn\'t implement \'${call.method}\'',
+        );
+    }
+  }
+
+  /// Returns a [String] containing the version of the platform.
+  Future<String> getPlatformVersion() {
+    final version = html.window.navigator.userAgent;
+    return Future.value(version);
   }
 
   /// converts the image to zpl string in the following format
