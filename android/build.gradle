@@ -1,4 +1,4 @@
-group 'com.example.img_to_zpl'
+group 'com.teisd.img_to_zpl'
 version '1.0'
 
 buildscript {

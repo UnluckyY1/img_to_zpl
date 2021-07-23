@@ -1,4 +1,4 @@
-package com.example.img_to_zpl;
+package com.teisd.img_to_zpl;
 
 import androidx.annotation.NonNull;
 
